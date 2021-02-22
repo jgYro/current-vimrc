@@ -8,6 +8,7 @@ nnoremap <SPACE> <Nop>
 " :imap ii <Esc>
 let mapleader=" "
 set encoding=utf-8
+set cmdheight=2
 set rnu
 set nu
 set cursorline
@@ -35,6 +36,9 @@ call plug#begin()
 Plug 'preservim/NERDTree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'sharkdp/bat'
+Plug 'BurntSushi/ripgrep'
+Plug 'ggreer/the_silver_searcher'
 "python stuff
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
@@ -60,6 +64,19 @@ autocmd vimenter * ++nested colorscheme gruvbox
 let g:UltiSnipsExpandTrigger = '<C-j>'
 let g:UltiSnipsJumpForwardTrigger = '<C-x>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-z>'
+
+" To use echodoc, you must increase 'cmdheight' value.
+" Or, you could use vim's popup window feature.
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'popup'
+" To use a custom highlight for the popup window,
+" change Pmenu to your highlight group
+highlight link EchoDocPopup Pmenu
+
+
+nnoremap <silent> <Leader>f :Rg<CR>
+
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 " codeaction 
 "Example: <leader>aap for current paragraph, <leader>aw for the current word
@@ -95,3 +112,4 @@ endfunction
 
 nmap <leader>rn <Plug>(coc-rename)
 call plug#end()
+
