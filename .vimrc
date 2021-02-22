@@ -5,7 +5,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 nnoremap <SPACE> <Nop>
-:imap ii <Esc>
+" :imap ii <Esc>
 let mapleader=" "
 set encoding=utf-8
 set rnu
@@ -20,6 +20,10 @@ set autoindent
 set noswapfile
 set noerrorbells
 set showcmd
+set updatetime=300
+set noshowcmd
+set noruler
+set nowrap
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -31,20 +35,31 @@ call plug#begin()
 Plug 'preservim/NERDTree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+"python stuff
 Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-python'
-Plug 'jiangmiao/auto-pairs'
 Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'davidhalter/jedi'
-Plug 'vim-syntastic/syntastic'
+Plug 'jiangmiao/auto-pairs'
+Plug 'Shougo/echodoc.vim'
 Plug 'gruvbox-community/gruvbox'
-Plug 'Neevash/awesome-flutter-snippets'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rhysd/vim-grammarous'
+Plug 'SirVer/Ultisnips'
+"dart stff
+Plug 'natebosch/dartlang-snippets'
 Plug 'dart-lang/dart-vim-plugin'
+let dart_format_on_save = 1
+let dart_style_guide = 2
+
+let g:coc_force_debug = 1
 
 autocmd vimenter * ++nested colorscheme gruvbox
+
+
+let g:UltiSnipsExpandTrigger = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger = '<C-x>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-z>'
 
 " codeaction 
 "Example: <leader>aap for current paragraph, <leader>aw for the current word
